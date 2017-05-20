@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>多物体同时运动</title>
+	<style type="text/css">
+		*{
+			padding: 0px;
+			margin: 0px;
+		}
+		ul,li{
+			list-style: none;
+		}
+		ul li{
+			width: 200px;
+			height: 100px;
+			background-color: yellow;
+			margin-bottom: 20px;
+			border: 4px solid #000;
+			filter: alpha(opacity:30);
+			opacity: 0.3;
+		}
+	</style>
+</head>
+<body>
+<ul>
+	<li id="li1"></li>
+</ul>
+<script type="text/javascript">
+    window.onload = function(){
+    	var oLi = document.getElementById('li1');	
+    	oLi.onmouseover = function(){
+    		startMove(oLi,{width:400,height:200,opacity:100});
+    	}
+    	oLi.onmouseout = function(){
+    		startMove(oLi,{width:200,height:100,opacity:30});
+    	}
+    
+    }
+    //startMove(obj,{attr1:iTarget1,attr2:iTarget2},fn);
+	function startMove(obj,json,fn1){
+		clearInterval(obj.timer);
+		obj.timer = setInterval(function(){
+			var flag = 1;
+			for (var attr in json) {
+			
+			//检测是不是透明度
+			if(attr == "opacity"){
+				icur = Math.round(parseFloat(getStyle(obj,attr))*100);
+			}
+			else{
+				icur = parseInt(getStyle(obj,attr));
+			}
+			//算速度
+		    var speed = (json[attr] - icur)/8;
+			if (speed > 0) {
+				var speed = Math.ceil(speed);
+			}
+			else{
+				var speed = Math.floor(speed);
+			}
+			//检测停止
+			if (icur !== json[attr]){
+				flag = 2;
+			}
+							//检测是不是透明度
+				if (attr == "opacity") {
+					obj.style.filter = "alpha(opacity:"+(icur + speed)+")" ;//针对IE浏览器
+					obj.style.opacity = (icur + speed )/100;
+				}
+				else{
+
+					obj.style[attr] = icur
+ + speed +"px";
+				     }
+				  }
+				  //parseInt用于提取字符串中的整数数字去掉PX
+				  if(flag == 1){
+				  	clearInterval(obj.timer);
+				  	if(fn1){
+				  		fn1.call(obj);
+				  	}
+				  }
+				
+	},30)
+			}
+
+	 function getStyle(obj,attr){
+        if(obj.currentStyle){
+            return obj.currentStyle[attr];//针对IE浏览器
+        }
+        else{
+            return getComputedStyle(obj,false)[attr];//针对其他浏览器
+        }
+       }
+</script>
+</body>
+</html>

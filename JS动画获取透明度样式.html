@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>获取动画2</title>
+	<style type="text/css">
+		*{
+			padding: 0px;
+			margin: 0px;
+		}
+       
+		ul li{
+			list-style: none;
+			background-color: yellow;
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+			margin-bottom: 20px;
+			filter: alpha(opacity:30);
+			opacity: 0.3;
+		}
+	</style>
+</head>
+<body>
+    <ul>
+    	<li id="li1"></li>
+    	<li id="li2"></li>
+    </ul>
+<script type="text/javascript">
+window.onload = function(){
+	var Li1 = document.getElementById('li1');
+	var Li2 = document.getElementById('li2');
+	Li1.onmouseover = function(){
+		startMove(this,"opacity",100);
+	}
+	Li1.onmouseout = function(){
+		startMove(this,"opacity",30);
+	}
+}
+    //var alpha = 30;
+	function startMove(obj,attr,iTarget){
+		clearInterval(obj.timer);
+		obj.timer = setInterval(function(){
+			var icur = 0;
+			if(attr == "opacity"){
+				icur = Math.round(parseFloat(getStyle(obj,attr))*100);
+			}
+			else{
+				icur = parseInt(getStyle(obj,attr));
+			}
+		    var speed = (iTarget - icur)/8;
+			if (speed > 0) {
+				var speed = Math.ceil(speed);
+			}
+			else{
+				var speed = Math.floor(speed);
+			}
+			if (icur == iTarget){
+				clearInterval(obj.timer);
+			}                               
+			else{
+				if (attr == "opacity") {
+					obj.style.filter = "alpha(opacity:"+(icur + speed)+")" ;//针对IE浏览器
+					obj.style.opacity = (icur + speed )/100;
+				}
+				else{
+					obj.style[attr] = icur
+ + speed +"px";
+				     }
+				  }//parseInt用于提取字符串中的整数数字去掉PX
+				},30)
+			}
+
+	 function getStyle(obj,attr){
+        if(obj.currentStyle){
+            return obj.currentStyle[attr];//针对IE浏览器
+        }
+        else{
+            return getComputedStyle(obj,false)[attr];//针对其他浏览器
+        }
+       }     
+</script>
+</body>
+</html>
