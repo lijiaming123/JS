@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>小米轮播图</title>
+</head>
+<style type="text/css">
+    *{
+    	padding: 0;
+    	margin: 0;
+    }
+    #container{
+    	width: 1226px;
+    	height: 460px;
+    	overflow: hidden;
+    	position: relative;
+    }
+	#mainBox{
+		width: 6130px;
+		height: 460px;
+		position: absolute;
+	}
+	#mainBox img{
+		float: left;
+	}
+	#button{
+		height: 10px;
+		width: 100px;
+		position: absolute;
+		left: 563px;
+		top: 440px;
+	}
+	#button span{
+		cursor: pointer; 
+		float: left; 
+		border: 1px solid #fff; 
+		width: 10px; 
+		height: 10px; 
+		border-radius: 50%; 
+		margin-right: 5px;
+	}
+	#button .on{
+		background-color: orangered;
+	}
+	.jiantou{
+		cursor: pointer;
+		text-decoration: none;
+		display: none; 
+		line-height: 39px; 
+		text-align: center; 
+		font-size: 36px; 
+		font-weight: bold; 
+		width: 40px; 
+		height: 40px;  
+		position: absolute; 
+		z-index: 2; 
+		top: 210px; 
+		background-color: RGBA(0,0,0,.3); color: #fff;
+	}
+	#container:hover .jiantou{
+		display: block;
+	}
+	#next{
+        margin-left: 1186px;
+	}
+</style>
+<body>
+<div id="container">
+	<div id="mainBox" style="left: 0px;">
+		<a href="00"><img src="img/轮播图1.jpg" style="z-index: 0"></a>
+		<a href="00"><img src="img/轮播图2.jpg" style="z-index: 0"></a>
+		<a href="00"><img src="img/轮播图3.jpg" style="z-index: 0"></a>
+		<a href="00"><img src="img/轮播图4.jpg" style="z-index: 0"></a>
+		<a href="00"><img src="img/轮播图5.jpg" style="z-index: 0"></a>
+	</div>
+	<div id="button">
+		<span class="on" data-index="0"></span>
+		<span data-index="1"></span>
+		<span data-index="2"></span>
+		<span data-index="3"></span>
+		<span data-index="4"></span>
+	</div>
+	<a href="javascript:;" id="prev" class="jiantou">&lt;</a>
+	<a href="javascript:;" id="next" class="jiantou">&gt;</a>
+</div>
+<script type="text/javascript">
+	window.onload = function(){
+		var index = 0;
+		var container = document.getElementById("container");
+		var omainBox = document.getElementById("mainBox");
+		var prev = document.getElementById('prev');
+		var next = document.getElementById("next");
+		var aSpan = document.getElementById("button").getElementsByTagName('span');
+		var timer = null;
+		var timerr = null;
+		next.onclick = function(){
+			index++;
+			if (index==5) {
+				index=0;
+			}
+		    imgMove((1226*index));
+			}
+		prev.onclick = function(){
+			index--;
+			if (index==(-1)) {
+				index=4;
+			}
+			imgMove((1226*index));
+			
+		}
+		function imgMove(mubiao){
+            clearInterval(timer);
+			timer = setInterval(
+			function(){
+				var speed = Math.floor(mubiao/(8*index));
+				omainBox.style.left = parseInt(omainBox.style.left)-
+			speed + "px";
+			if (parseInt(omainBox.style.left)<=(-mubiao)) {
+				omainBox.style.left = -mubiao + "px";
+				clearInterval(timer);
+			} 
+			if (parseInt(omainBox.style.left)>=(mubiao)) {
+				omainBox.style.left = mubiao + "px";
+				clearInterval(timer);
+			}
+			changeColor();
+			if(parseInt(omainBox.style.left) <= (-6130)) {
+			omainBox.style.left = 0+"px";
+		}	
+			if (parseInt(omainBox.style.left) >= (1226)) {
+				omainBox.style.left = (-4904)+ "px";
+			}
+		},30)
+		} 
+
+		function showbutton(){
+		for (var i = 0; i < aSpan.length; i++) {
+			aSpan[i].onclick = function(){
+				this.className = "on";	
+				index = this.dataset.index;
+				omainBox.style.left = (-1226*index)+"px";	
+				changeColor();
+			}
+
+		}
+	}
+        showbutton();
+	function changeColor(){
+		for(var i=0;i < aSpan.length;i++){
+      aSpan[i].className='';
+    }
+    aSpan[index].className='on';
+		}
+	function play(){
+        timerr = setInterval(function(){
+    	next.onclick();
+    },3000)
+}
+play();
+    container.onmouseover = function(){
+     	clearInterval(timerr);
+			}
+    container.onmouseout = function(){
+    	play();
+     }
+    }
+</script>
+</body>
+</html>
