@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>抽奖</title>
+		<style type="text/css">
+			#box {
+				text-align: center;
+				height: 50px;
+			}
+			
+			#box1 {
+				margin: 0 auto;
+				margin-top: 50px;
+				width: 100px;
+			}
+			
+			#box1 input {
+				cursor: pointer;
+			}
+		</style>
+		<script type="text/javascript">
+			var data = ['iPhone7', 'Ipad', '三星笔记本', '佳能相机', '谢谢参与', '1000元超市购物券'],
+				timer = null,
+				flag = 0;
+
+			window.onload = function() {
+				var play = document.getElementById("play"),
+					stop = document.getElementById("stop");
+
+				// 开始抽奖
+				play.onclick = playFun;
+				stop.onclick = stopFun;
+
+				// 键盘事件
+				document.onkeyup = function(event) {
+					event = event || window.event;
+					if(event.keyCode == 13) {
+						if(flag == 0) {
+							playFun();
+							flag = 1;
+						} else {
+							stopFun();
+							flag = 0;
+						}
+					}
+				}
+
+			}
+
+			function playFun() {
+				var play = document.getElementById("play");
+				clearInterval(timer);
+				timer = setInterval(function() {
+					var random = Math.floor(Math.random() * data.length );
+					box.innerHTML = data[random];
+				}, 50);
+				play.style.background = "#999";
+				
+			}
+
+			function stopFun() {
+				clearInterval(timer);
+				play.value = "继续";
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="box">开始抽奖啦</div>
+		<div id="box1">
+			<input type="button" name="button" value="开始" id="play" >
+			<input type="button" name="button" value="结束" id="stop" >
+		</div>
+	</body>
+
+</html>
