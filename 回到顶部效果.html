@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<title>回到顶部效果</title>
+</head>
+<style type="text/css">
+	div{
+		margin: 0 auto;
+		margin-bottom: 20px;
+		width: 1000px;
+		height: 300px;
+		background-color: red;
+	}
+    p{  
+    	font-size: 12px;
+    	line-height: 50px;
+    	text-align: center;
+    	position: fixed;
+    	bottom: 20px;
+    	left: 80%;
+    	display: none;
+    	height: 50px;
+    	width: 50px;
+    	background-color: yellow;
+    }
+</style>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<p id="ap">按钮</p>
+<script type="text/javascript">
+	window.onload = function(){
+		var ap = document.getElementById('ap');
+		var timer = null;
+        var isTop = true;
+        window.onscroll = function(){
+            var osTop = document.documentElement.scrollTop||
+			document.body.scrollTop;
+			if (osTop >= 500) {
+				ap.style.display = "block";
+			}else{
+				ap.style.display = "none";
+			}
+        	if(!isTop){
+        		clearInterval(timer);
+        	}
+        	isTop = false;
+        }
+		ap.onclick = function(){
+			timer = setInterval(function(){
+            var osTop = document.documentElement.scrollTop||
+			document.body.scrollTop;
+			var speed = Math.floor(-osTop/3);
+			document.documentElement.scrollTop = document.body.scrollTop = osTop + speed;
+			if (osTop == 0) {
+				clearInterval(timer);
+			}	
+			isTop = true;
+		},30)
+		}
+	}
+</script>
+</body>
+</html>
