@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style type="text/css">
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .box1{
+      margin-top: 19px;
+      margin-bottom:5px; 
+      display: inline-block;
+      clear: both;
+      float: right;  
+    }
+    a{
+      margin-left: 18px;
+      line-height: 24px;
+      font-size: 13px ;
+      color: black;
+      text-decoration:underline;
+      font-weight: bold;
+      }
+    #zzr{
+      display: inline;
+    list-style: none;
+    }
+    .box1 li ul {
+      list-style: none;
+      display: none;
+      position: relative;
+    }
+    .box1 li:hover ul { 
+      border: 1px solid #ccc;
+      color: #06f;
+      display: block;
+      position: absolute;
+      right: 60px;top: 38px;
+    }
+    .shezhi{
+      text-decoration: none;
+      font-weight: normal;
+      padding-right: 15px;
+    }
+    .more{
+      background-color: #38f;
+      color: #fff;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      width: 60px;
+    }
+    #logo{
+      display: block;
+      text-align: center;
+      padding-top: 48px;
+    }
+    form{
+      text-align: center;
+          }
+    input{
+      padding:0 0 0 7px;
+      width: 538px;
+      height: 33px;
+      border: 1px solid #b6b6b6;
+    }
+    button{
+      width:100px;
+      height:36px;
+      border:0;
+      background-color: #3385ff;
+      color:#fff;
+      font-size: 15px;
+      }
+    form button:hover{
+      cursor: pointer;
+    }
+</style>
+  <title>百度一下</title>
+</head>
+<body>
+    <div class="box1">
+      <a href="https://www.nuomi.com/?cid=002540">糯米</a>
+      <a href="http://news.baidu.com/">新闻</a>
+      <a href="https://www.hao123.com/?tn=97774645_hao_pg">hao123</a>
+      <a href="http://map.baidu.com/">地图</a>
+      <a href="http://v.baidu.com/">视频</a>     
+      <a href="http://tieba.baidu.com/">贴吧</a>
+      <a style="font-weight:normal">登录</a> 
+      <li id="zzr"><a style="font-weight:normal">设置</a>
+      <ul>
+        <li><a href="#" class="shezhi">搜索设置</a></li>
+        <li><a href="#" class="shezhi">高级搜索</a></li>
+        <li><a href="#" class="shezhi">关闭预测</a></li>
+        <li><a href="#" class="shezhi">搜索历史</a></li>
+      </ul></li>
+      <a class="more">更多产品</a>
+      </div>     
+      <div id="logo">
+      <img src="https://www.baidu.com/img/bd_logo1.png">
+      </div>
+      <form>      
+      <input type="text"><button type="button">百度一下</button>
+    </form>
+</body>
+</html>
