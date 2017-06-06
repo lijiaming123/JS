@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>手风琴</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	.accordion h3+div{
+    height: 0;
+    overflow: hidden;/*超出部分隐藏*/
+    transition: height 0.3s ease-in;/*展开的一种特效，以0.3s慢慢飞入*/
+}
+
+    .accordion :target h3+div{
+    height: 300px;
+    overflow: auto;/*超过部分自动隐藏*/
+}
+	</style>
+</head>
+<body>
+<div class="accordion">
+    <div id="one" class="section">
+        <h3><a href="#one">折叠栏1</a></h3>
+        <div id="image1" class="image"><img src=""></div>
+    </div>
+    <div id="two" class="section">
+        <h3><a href="#two">折叠栏2</a></h3>
+        <div id="image2" class="image"><img src=""></div>
+    </div>
+    <div id="three" class="section">
+        <h3><a href="#three">折叠栏3</a></h3>
+        <div id="image3" class="image"><img src=""></div>
+    </div>
+    <div id="four" class="section">
+        <h3><a href="#four">折叠栏4</a></h3>
+        <div id="image4" class="image"><img src=""></div>
+    </div>
+    <div id="five" class="section">
+        <h3><a href="#five">折叠栏5</a></h3>
+        <div id="image5" class="image"><img src=""></div>
+    </div>
+    <div id="six" class="section">
+        <h3><a href="#six">折叠栏6</a></h3>
+        <div id="image6" class="image"><img src=""></div>
+    </div>
+</div>
+<script type="text/javascript">
+	function showSection(id) {
+    var images=document.getElementsByClassName("image");
+    for(var i=0;i<images.length;i++){
+        if(images[i].getAttribute("id")!=id){
+            images[i].style.display="none";
+        }else{
+            images[i].style.display="block";
+        }
+    }
+}
+
+function imagesHidden() {
+    var images=document.getElementsByClassName("image");
+    for(var i=0;i<images.length;i++){
+        var id=images[i].getAttribute("id");
+        document.getElementById(id).style.display="none";
+    }
+}
+function addClick() {
+    var sections=document.getElementsByClassName("section");
+    for(var i=0;i<sections.length;i++){
+        sections[i].onclick=function () {
+            var showID=this.children[1].getAttribute("id");
+            showSection(showID);
+        }
+    }
+}
+</script>
+</body>
+</html>
